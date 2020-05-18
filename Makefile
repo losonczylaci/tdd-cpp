@@ -3,8 +3,7 @@
 
 all: main.cpp lib
 	@mkdir -p bin
-	g++ $< -Iinclude -L./lib -l rectangle -o ./bin/main
-	## don't forget to export LD_LIBRARY_PATH=./lib
+	@g++ $< -Iinclude -L./lib -l rectangle -o ./bin/main
 
 lib: 
 	mkdir -p lib
@@ -15,4 +14,4 @@ clean:
 	rm -rf lib
 
 run: all
-	./bin/main
+	@./bin/main
