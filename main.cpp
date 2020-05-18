@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <rectangle.hpp>
+#include <rectangle.hpp>
 
 using namespace std;
 
