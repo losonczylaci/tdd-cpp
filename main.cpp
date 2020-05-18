@@ -1,7 +1,7 @@
 
 
-#include <rectangle.hpp>
 #include <iostream>
+#include <rectangle.hpp>
 
 using namespace std;
 

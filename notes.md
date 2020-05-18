@@ -34,12 +34,17 @@ ld -o main main.o
 
 ## Commands
 
-| command | description          | example                         |
-| ------- | -------------------- | ------------------------------- |
-| nm      | list symbols         | nm lib.dll                      |
-| file    | get file information | file lib.dll                    |
-| as      | assembler            | as main.s                       |
-| ld      | link                 | ld main.exe main.o              |
-| ar      | to create static lib | ar crf libmain.a main.o stuff.o |
+| command | description            | example                         |
+| ------- | ---------------------- | ------------------------------- |
+| nm      | list symbols           | nm lib.dll                      |
+| file    | get file information   | file lib.dll                    |
+| as      | assembler              | as main.s                       |
+| ld      | link                   | ld main.exe main.o              |
+| ar      | to create static lib   | ar crf libmain.a main.o stuff.o |
+| ldd     | list dynamic libraries | ldd main.exe                    |
+
+
+> Note: path to the lib has to be add to the `LD_LIBRARY_PATH` variable.
+> For more info [see](https://stackoverflow.com/questions/5357869/error-while-loading-shared-libraries)
 
 
