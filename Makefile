@@ -1,14 +1,14 @@
 
 
 
-all: main.cpp rectlib
+all: main.cpp lib
 	@mkdir -p bin
-	g++ $< -Iinclude lib/rectlib.a -o ./bin/main
+	g++ $< -Iinclude -L./lib -l rectangle -o ./bin/main
+	## don't forget to export LD_LIBRARY_PATH=./lib
 
-rectlib: 
+lib: 
 	mkdir -p lib
-	g++ -c src/rectangle.cpp -Iinclude -o lib/rectangle.o
-	ar crf lib/rectlib.a lib/rectangle.o
+	g++ -shared src/rectangle.cpp -Iinclude -o lib/librectangle.so
 
 clean: 
 	rm -rf bin
