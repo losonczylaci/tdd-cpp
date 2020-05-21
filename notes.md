@@ -52,3 +52,10 @@ ld -o main main.o
 
 `#pragma` is not the standard way of adding header guared however it supported by most of the compilers.  
 (see cpp advanced chapter 6: including files only once)
+
+
+## useful tools
+
+valgrind
+drmempory
+clang-tidy
