@@ -22,6 +22,9 @@ test: $(buildDir)/testmain
 
 qa: test lint
 
+memcheck: all
+	valgrind --leak-check=yes $(buildDir)/main
+
 lint: 
 	@echo "\nRunning linter..."
 	clang-tidy-9 --checks='*,-modernize-use-trailing-return-type' --header-filter='.*' $(sources) -- -Iinclude
