@@ -27,5 +27,5 @@ memcheck: all
 
 lint: 
 	@echo "\nRunning linter..."
-	clang-tidy-9 --checks='*,-modernize-use-trailing-return-type' --header-filter='.*' $(sources) -- -Iinclude
+	clang-tidy-9 --header-filter='.*' $(sources) -- -Iinclude
 
