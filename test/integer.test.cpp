@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <integer.hpp>
 #include <stdexcept>
+#include <string>
 
 class IntGroup : public ::testing::Test {
    protected:
@@ -50,4 +51,17 @@ TEST_F(IntGroup, divOperator) {
     ASSERT_EQ(i2 / 2, 1);
     ASSERT_EQ(2 / i2, 1);
     ASSERT_ANY_THROW(i2 / 0);
+}
+
+TEST_F(IntGroup, stringConversionOperator) {
+    ASSERT_EQ("1", static_cast<std::string>(i1));
+    std::string str = "No. ";
+    str += i1;
+    ASSERT_EQ("No. 1", str);
+}
+
+TEST_F(IntGroup, ostreamOperator) {
+    std::stringstream out;
+    out << "Value: " << i1;
+    ASSERT_EQ("Value: 1", out.str());
 }
