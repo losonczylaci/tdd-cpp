@@ -65,3 +65,16 @@ TEST_F(IntGroup, ostreamOperator) {
     out << "Value: " << i1;
     ASSERT_EQ("Value: 1", out.str());
 }
+
+TEST_F(IntGroup, functor) {
+    ASSERT_EQ(2, i1(2));
+    ASSERT_EQ(4, i2(2));
+}
+
+TEST_F(IntGroup, increments) {
+    Int i = 10;
+    ASSERT_EQ(11, ++i);
+    ASSERT_EQ(11, i);
+    ASSERT_EQ(11, i++);
+    ASSERT_EQ(12, i);
+}

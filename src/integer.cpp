@@ -30,6 +30,18 @@ bool operator!=(const Int& lhs, const Int& rhs) {
 }
 
 std::ostream& operator<<(std::ostream& o, const Int& rhs) {
-    o << rhs.getValue();
-    return o;
+    return o << rhs.getValue();
+}
+
+int Int::operator()(int nr) const { return this->_value * nr; }
+
+Int& Int::operator++() {
+    ++_value;
+    return *this;
+}
+
+Int Int::operator++(int) {
+    Int copy = *this;
+    ++_value;
+    return copy;
 }

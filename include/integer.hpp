@@ -15,6 +15,9 @@ class Int {
     int getValue() const { return _value; }
     void setValue(int value) { _value = value; }
     operator std::string() const;  // NOLINT
+    int operator()(int nr) const;
+    Int& operator++();
+    Int operator++(int);
 };
 
 Int operator+(const Int& lhs, const Int& rhs);
