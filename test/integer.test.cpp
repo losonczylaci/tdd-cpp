@@ -78,3 +78,16 @@ TEST_F(IntGroup, increments) {
     ASSERT_EQ(11, i++);
     ASSERT_EQ(12, i);
 }
+
+TEST_F(IntGroup, decrements) {
+    Int i = 10;
+    ASSERT_EQ(9, --i);
+    ASSERT_EQ(9, i);
+    ASSERT_EQ(9, i--);
+    ASSERT_EQ(8, i);
+}
+
+TEST_F(IntGroup, userDefinedLiteral) {
+    ASSERT_EQ(1, 1_i);
+    ASSERT_EQ(2, 2_i);
+}

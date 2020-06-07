@@ -17,7 +17,11 @@ class Int {
     operator std::string() const;  // NOLINT
     int operator()(int nr) const;
     Int& operator++();
+    // NOLINTNEXTLINE(cert-dcl21-cpp)
     Int operator++(int);
+    Int& operator--();
+    // NOLINTNEXTLINE(cert-dcl21-cpp)
+    Int operator--(int);
 };
 
 Int operator+(const Int& lhs, const Int& rhs);
@@ -28,5 +32,8 @@ Int operator/(const Int& lhs, const Int& rhs);
 bool operator==(const Int& lhs, const Int& rhs);
 bool operator!=(const Int& lhs, const Int& rhs);
 
+// NOLINTNEXTLINE(google-runtime-int)
+Int operator""_i(unsigned long long value);
 std::ostream& operator<<(std::ostream& o, const Int& rhs);
+
 #endif
