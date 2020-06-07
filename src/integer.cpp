@@ -29,6 +29,11 @@ bool operator!=(const Int& lhs, const Int& rhs) {
     return lhs.getValue() != rhs.getValue();
 }
 
+Int operator""_i(unsigned long long value) {  // NOLINT google-runtime-int
+    Int tmp = static_cast<int>(value);
+    return tmp;
+}
+
 std::ostream& operator<<(std::ostream& o, const Int& rhs) {
     return o << rhs.getValue();
 }
@@ -40,8 +45,21 @@ Int& Int::operator++() {
     return *this;
 }
 
+// NOLINTNEXTLINE(cert-dcl21-cpp)
 Int Int::operator++(int) {
     Int copy = *this;
     ++_value;
+    return copy;
+}
+
+Int& Int::operator--() {
+    --_value;
+    return *this;
+}
+
+// NOLINTNEXTLINE(cert-dcl21-cpp)
+Int Int::operator--(int) {
+    Int copy = *this;
+    --_value;
     return copy;
 }
