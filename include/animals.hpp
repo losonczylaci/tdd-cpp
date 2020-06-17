@@ -17,6 +17,8 @@ class Dog : public Animal {
     std::string _name;
     std::string _sound;
 
+    friend const std::string& getAnimalSound(const Dog& dog);
+
    public:
     explicit Dog(std::string name)
         : _name(std::move(name)), _sound("bark-bark") {}
@@ -24,5 +26,7 @@ class Dog : public Animal {
     const std::string& getSound() const;
     void saySomething() const override;
 };
+
+const std::string& getAnimalSound(const Dog& dog);
 
 #endif

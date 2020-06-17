@@ -29,3 +29,8 @@ TEST_F(AnimalsGroup, saySomething) {
     EXPECT_CALL(d, saySomething());
     d.saySomething();
 }
+
+TEST_F(AnimalsGroup, friendFunction) {
+    const Dog d("Bloki");
+    EXPECT_EQ("bark-bark", getAnimalSound(d));
+}
