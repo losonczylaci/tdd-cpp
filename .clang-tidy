@@ -1,5 +1,5 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*,*,-modernize-use-trailing-return-type,-fuchsia-overloaded-operator'
+Checks:          'clang-diagnostic-*,clang-analyzer-*,*,-modernize-use-trailing-return-type,-fuchsia*'
 WarningsAsErrors: ''
 HeaderFilterRegex: '.*'
 AnalyzeTemporaryDtors: false
@@ -129,7 +129,7 @@ CheckOptions:
   - key:             cppcoreguidelines-special-member-functions.AllowMissingMoveFunctions
     value:           '0'
   - key:             cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor
-    value:           '0'
+    value:           '1'
   - key:             fuchsia-header-anon-namespaces.HeaderFileExtensions
     value:           ',h,hh,hpp,hxx'
   - key:             fuchsia-restrict-system-includes.Includes
@@ -197,7 +197,7 @@ CheckOptions:
   - key:             hicpp-special-member-functions.AllowMissingMoveFunctions
     value:           '0'
   - key:             hicpp-special-member-functions.AllowSoleDefaultDtor
-    value:           '0'
+    value:           '1'
   - key:             hicpp-uppercase-literal-suffix.IgnoreMacros
     value:           '1'
   - key:             hicpp-uppercase-literal-suffix.NewSuffixes

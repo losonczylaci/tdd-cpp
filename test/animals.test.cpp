@@ -5,7 +5,7 @@
 
 class DogMock : public Dog {
    public:
-    DogMock(const std::string name) : Dog(name) {}
+    DogMock(const std::string& name) : Dog(name) {}
     MOCK_CONST_METHOD0(saySomething, void());
 };
 
