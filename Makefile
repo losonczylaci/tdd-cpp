@@ -30,3 +30,6 @@ lint:
 	@echo -e "\nRunning linter..."
 	$(CLANG-TIDY) --header-filter='.*' $(sources) -- -Iinclude
 
+cppcheck:
+	@echo -e "\nRunning cppcheck..."
+	cppcheck --enable=all $(sources)
