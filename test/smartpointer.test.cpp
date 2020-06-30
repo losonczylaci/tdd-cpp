@@ -24,6 +24,7 @@ TEST(smartPointerGroup, uniquePointerRelease) {
     int* a = uptr.release();
     EXPECT_EQ(uptr, nullptr);
     EXPECT_NE(a, nullptr);
+    delete a;
 }
 
 TEST(smartPointerGroup, uniquePointerReset) {

@@ -24,7 +24,7 @@ test: $(buildDir)/testmain
 qa: memcheck lint
 
 memcheck: $(buildDir)/testmain
-	valgrind --leak-check=yes $(buildDir)/testmain
+	valgrind --leak-check=yes $(buildDir)/testmain --gtest_brief=1
 
 lint: 
 	@echo -e "\nRunning linter..."
