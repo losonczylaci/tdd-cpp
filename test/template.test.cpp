@@ -30,6 +30,7 @@ TEST(stlGroup, noTypeDeduction) {
     // EXPECT_EQ(2, maxOf(1, 2.0)); //won't compile
 }
 
+#if __cplusplus > 201103L
 template <typename T>
 constexpr T pi(3.141592653589793238462);
 
@@ -49,3 +50,4 @@ TEST(stlGroup, areaOfCircle) {
     auto area = areaOfCircle<double>(1.7842);
     EXPECT_NEAR(10, area, 0.001);
 }
+#endif
