@@ -1,5 +1,6 @@
 # Todo
 
-- write tests for `unordered_set`
-- write tests for `multiset`
-- write tests for `unordered_multiset`
+- try out `unordered_set`
+- try out `multiset`
+- try out `unordered_multiset`
+- try out `multimap`
