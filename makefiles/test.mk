@@ -3,9 +3,9 @@ GMOCK_INC = googletest/googlemock/include
 GTEST_LIB = $(libDir)/gtest/lib
 GTEST_LIBS = $(wildcard $(libDir)/gtest/lib/*.a)
 
-tests = ${wildcard test/*.cpp}
-testsObjects = $(patsubst test/%.cpp, $(buildDir)/%.o, $(tests))
-testsDependencies = $(patsubst test/%.cpp, $(buildDir)/%.d, $(tests))
+tests = ${wildcard $(testDir)/*.cpp}
+testsObjects = $(patsubst $(testDir)/%.cpp, $(buildDir)/%.o, $(tests))
+testsDependencies = $(patsubst $(testDir)/%.cpp, $(buildDir)/%.d, $(tests))
 
 $(libDir)/gtest/lib/libgtest.a:
 	mkdir -p $(libDir)/gtest
@@ -14,7 +14,7 @@ $(libDir)/gtest/lib/libgtest.a:
 
 -include $(testsDependencies)
 
-$(buildDir)/%.o: test/%.cpp
+$(buildDir)/%.o: $(testDir)/%.cpp
 	mkdir -p $(buildDir)
 	g++ -c -o $@ $(CXXFLAGS) $< -I$(GTEST_INC) -I$(GMOCK_INC) -Iinclude $(createDependencies) 
 
