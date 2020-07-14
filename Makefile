@@ -33,3 +33,10 @@ lint:
 cppcheck:
 	@echo -e "\nRunning cppcheck..."
 	cppcheck --enable=all $(sources)
+
+coverage: $(buildDir)/coverageFilt.info
+	@lcov --summary $< 
+
+coverageHtml: $(buildDir)/coverageFilt.info
+	@genhtml $< -o $(buildDir) -q
+	@echo HTML report has been generated, see $(buildDir)/index.html

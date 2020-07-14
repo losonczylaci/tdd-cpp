@@ -21,3 +21,9 @@ $(buildDir)/%.o: test/%.cpp
 $(buildDir)/testmain: $(testsObjects) $(GTEST_LIBS) $(sourceObjects) $(libDir)/gtest/lib/libgtest.a
 	mkdir -p $(buildDir)
 	g++ -o $@ $(CXXFLAGS) -L./$(GTEST_LIB) -lgmock_main -lgmock -lgtest_main -lgtest $(testsObjects) $(sourceObjects) -I$(GTEST_INC) -I$(GMOCK_INC)
+
+$(buildDir)/coverage.info: test
+	@lcov --capture --directory ./ -o $@ -q
+
+$(buildDir)/coverageFilt.info: $(buildDir)/coverage.info
+	@lcov --remove $(buildDir)/coverage.info -o $@ '*/googletest/*' '*/test/*' '*/7/*' -q
