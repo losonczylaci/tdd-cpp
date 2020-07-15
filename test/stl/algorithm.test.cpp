@@ -7,6 +7,7 @@ using namespace std;
 class algorithmGroup : public ::testing::Test {
    protected:
     vector<int> v = {1, 2, 3, 4, 5};
+    vector<int> vu = {1, 5, 3, 2, 4};
 };
 
 TEST_F(algorithmGroup, binarySearch) {
@@ -75,4 +76,100 @@ TEST_F(algorithmGroup, replace) {
 TEST_F(algorithmGroup, replaceIf) {
     replace_if(v.begin(), v.end(), isOdd, 99);
     EXPECT_EQ(v, vector<int>({99, 2, 99, 4, 99}));
+}
+
+TEST_F(algorithmGroup, remove) {
+    auto it = remove(v.begin(), v.end(), 1);
+    EXPECT_EQ(v.end() - 1, it);
+    v.resize(it - v.begin());
+    EXPECT_EQ(v, vector<int>({2, 3, 4, 5}));
+}
+
+TEST_F(algorithmGroup, removeIf) {
+    auto last = remove_if(v.begin(), v.end(), isOdd);
+    v.resize(last - v.begin());
+    EXPECT_EQ(v, vector<int>({2, 4}));
+}
+
+TEST_F(algorithmGroup, copy) {
+    vector<int> copied(v.size());
+    copy(v.begin(), v.end(), copied.begin());
+    EXPECT_EQ(copied, v);
+}
+
+TEST_F(algorithmGroup, copyBackward) {
+    vector<int> copied(v.size() + 2, 0);
+    copy_backward(v.begin(), v.end(), copied.end());
+    EXPECT_EQ(copied, vector<int>({0, 0, 1, 2, 3, 4, 5}));
+}
+
+TEST_F(algorithmGroup, reverseCopy) {
+    vector<int> copied(v.size());
+    reverse_copy(v.begin(), v.end(), copied.begin());
+    EXPECT_EQ(copied, vector<int>({5, 4, 3, 2, 1}));
+}
+
+TEST_F(algorithmGroup, reverse) {
+    reverse(v.begin(), v.end());
+    EXPECT_EQ(v, vector<int>({5, 4, 3, 2, 1}));
+}
+
+TEST_F(algorithmGroup, fill) {
+    fill(v.begin(), v.end() - 2, 0);
+    EXPECT_EQ(v, vector<int>({0, 0, 0, 4, 5}));
+}
+
+TEST_F(algorithmGroup, fillN) {
+    fill_n(v.begin(), 2, 0);
+    EXPECT_EQ(v, vector<int>({0, 0, 3, 4, 5}));
+}
+
+TEST_F(algorithmGroup, generate) {
+    generate(v.begin(), v.end(), []() { return rand(); });
+    EXPECT_NE(v, vector<int>({1, 2, 3, 4, 5}));
+}
+
+TEST_F(algorithmGroup, partition) {
+    partition(v.begin(), v.end(), isOdd);
+    EXPECT_EQ(v, vector<int>({1, 5, 3, 4, 2}));
+}
+
+TEST_F(algorithmGroup, stablePartition) {
+    stable_partition(v.begin(), v.end(), isOdd);
+    EXPECT_EQ(v, vector<int>({1, 3, 5, 2, 4}));
+}
+
+TEST_F(algorithmGroup, partitionCopy) {
+    auto size = count_if(v.begin(), v.end(), isOdd);
+    vector<int> odds(size), evens(v.size() - size);
+    partition_copy(v.begin(), v.end(), odds.begin(), evens.begin(), isOdd);
+    EXPECT_EQ(odds, vector<int>({1, 3, 5}));
+    EXPECT_EQ(evens, vector<int>({2, 4}));
+}
+
+TEST_F(algorithmGroup, sort) {
+    sort(vu.begin(), vu.end());
+    EXPECT_EQ(vu, v);
+}
+
+bool isLessThan(int a, int b) { return a < b; }
+bool isGreaterThan(int a, int b) { return a > b; }
+
+TEST_F(algorithmGroup, customSort) {
+    sort(vu.begin(), vu.end(), isLessThan);
+    EXPECT_EQ(vu, v);
+}
+
+TEST_F(algorithmGroup, merge) {
+    vector<int> result(vu.size() + v.size());
+    sort(v.begin(), v.end());
+    sort(vu.begin(), vu.end());
+    merge(v.begin(), v.end(), vu.begin(), vu.end(), result.begin());
+    EXPECT_EQ(result, vector<int>({1, 1, 2, 2, 3, 3, 4, 4, 5, 5}));
+
+    sort(v.begin(), v.end(), isGreaterThan);
+    sort(vu.begin(), vu.end(), isGreaterThan);
+    merge(v.begin(), v.end(), vu.begin(), vu.end(), result.begin(),
+          isGreaterThan);
+    EXPECT_EQ(result, vector<int>({5, 5, 4, 4, 3, 3, 2, 2, 1, 1}));
 }
