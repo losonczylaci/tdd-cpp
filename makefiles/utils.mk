@@ -1,7 +1,8 @@
 
 STD := c++11
 
-CXXFLAGS = -std=$(STD) -g -O0 -Wall -pthread --coverage
+WARNINGS = -Wall -Wextra -Wshadow -fsanitize=undefined
+CXXFLAGS = -std=$(STD) -g -O0 -pthread --coverage $(WARNINGS)
 
 define createDependencies
 -MMD -MF$(@:%.o=%.d) -MT$(@)
