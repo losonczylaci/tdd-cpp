@@ -1,5 +1,6 @@
 buildDir := build
 libDir := lib
+testDir := test
 
 include makefiles/tools.mk
 include makefiles/utils.mk
