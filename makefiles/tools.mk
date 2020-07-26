@@ -6,4 +6,4 @@ else
     CLANG-TIDY := clang-tidy-9
 endif
 
-
+lcovConfig := --config-file .lcovrc

@@ -36,8 +36,8 @@ cppcheck:
 	cppcheck --enable=all $(sources)
 
 coverage: $(buildDir)/coverageFilt.info
-	@lcov --summary $< 
+	@lcov --summary $(lcovConfig) $<
 
 coverageHtml: $(buildDir)/coverageFilt.info
-	@genhtml $< -o $(buildDir) -q
-	@echo HTML report has been generated, see $(buildDir)/index.html
+	@genhtml $< -o $(buildDir) -q $(lcovConfig)
+	@echo HTML report has been generated, see $(buildDir)/index.html 
