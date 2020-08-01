@@ -1,33 +1,30 @@
 #include <statePattern.hpp>
 
-Door OpenState::handle(GarageRemote& gr) {
-    if (gr.isRemoteClicked) gr.changeState(new StoppedState);
-    gr.isDoorClosing = false;
-    gr.isRemoteClicked = false;
-    return gr.getState().getDoorState();
+DoorStates OpenState::handle(GarageRemoteContext& c) {
+    if (c.remoteButton.isClicked()) c.changeState(new StoppedState);
+    c.door.open();
+    return c.getState().getDoorState();
 }
 
-Door CloseState::handle(GarageRemote& gr) {
-    if (gr.isRemoteClicked) gr.changeState(new StoppedState);
-    gr.isDoorClosing = true;
-    gr.isRemoteClicked = false;
-    return gr.getState().getDoorState();
+DoorStates CloseState::handle(GarageRemoteContext& c) {
+    if (c.remoteButton.isClicked()) c.changeState(new StoppedState);
+    c.door.close();
+    return c.getState().getDoorState();
 }
 
-Door StoppedState::handle(GarageRemote& gr) {
-    if (not gr.isRemoteClicked)
-        return Door::Stopped;
-    else if (gr.isDoorClosing)
-        gr.changeState(new OpenState);
+DoorStates StoppedState::handle(GarageRemoteContext& c) {
+    if (not c.remoteButton.isClicked())
+        return DoorStates::Stopped;
+    else if (c.door.isClosing())
+        c.changeState(new OpenState);
     else
-        gr.changeState(new CloseState);
-    gr.isRemoteClicked = false;
-    return gr.getState().getDoorState();
+        c.changeState(new CloseState);
+    return c.getState().getDoorState();
 }
 
-Door GarageRemote::handle() { return _state->handle(*this); }
+DoorStates GarageRemoteContext::handle() { return _state->handle(*this); }
 
-void GarageRemote::changeState(State* state) {
+void GarageRemoteContext::changeState(State* state) {
     delete _state;
     if (state != nullptr) _state = state;
 }
