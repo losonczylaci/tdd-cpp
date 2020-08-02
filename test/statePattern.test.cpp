@@ -3,11 +3,27 @@
 
 class stateGroup : public ::testing::Test {
    protected:
-    DummyButton button;
-    DummyDoor door;
+    DummyDoor& door;
+    DummyButton& button;
+    GarageRemoteContext& context;
+
+   public:
+    stateGroup()
+        : door(*new DummyDoor),
+          button(*new DummyButton),
+          context(*new GarageRemoteContext(&door, &button)) {
+    }
+
+    ~stateGroup() {
+        delete &door;
+        delete &button;
+        delete &context;
+    }
 };
 
-TEST_F(stateGroup, buttonDefault) { EXPECT_FALSE(button.isClicked()); }
+TEST_F(stateGroup, buttonDefault) {
+    EXPECT_FALSE(button.isClicked());
+}
 
 TEST_F(stateGroup, shouldBeClickedFor1Cycle) {
     button.click();
@@ -15,7 +31,9 @@ TEST_F(stateGroup, shouldBeClickedFor1Cycle) {
     EXPECT_FALSE(button.isClicked());
 }
 
-TEST_F(stateGroup, doorDefault) { EXPECT_TRUE(door.isClosing()); }
+TEST_F(stateGroup, doorDefault) {
+    EXPECT_TRUE(door.isClosing());
+}
 
 TEST_F(stateGroup, door) {
     door.close();
@@ -25,24 +43,20 @@ TEST_F(stateGroup, door) {
 }
 
 TEST_F(stateGroup, garageRemoteDefault) {
-    GarageRemoteContext context(door, button);
-
+    EXPECT_EQ(DoorStates::Stopped, context.handle());
     EXPECT_EQ(DoorStates::Stopped, context.handle());
 }
 
 TEST_F(stateGroup, shouldWaitForNextClickForStateChange) {
-    GarageRemoteContext context(door, button);
-    EXPECT_EQ(DoorStates::Stopped, context.handle());
-
     context.remoteButton.click();
     EXPECT_EQ(DoorStates::Opening, context.handle());
     EXPECT_EQ(DoorStates::Opening, context.handle());
-    EXPECT_EQ(DoorStates::Opening, context.handle());
+
+    context.remoteButton.click();
+    EXPECT_EQ(DoorStates::Stopped, context.handle());
 }
 
-TEST_F(stateGroup, fullCycle) {
-    GarageRemoteContext context(door, button);
-
+TEST_F(stateGroup, fullOpenCloseCycle) {
     context.remoteButton.click();
     EXPECT_EQ(DoorStates::Opening, context.handle());
 
