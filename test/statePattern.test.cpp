@@ -1,16 +1,46 @@
 #include <gtest/gtest.h>
 #include <statePattern.hpp>
 
+class FakeDoor : public Door {
+    bool _isClosing = true;
+
+   public:
+    void open() override {
+        _isClosing = false;
+    }
+    void close() override {
+        _isClosing = true;
+    }
+    bool isClosing() override {
+        return _isClosing;
+    };
+};
+
+class FakeButton : public Button {
+    bool _isClicked = false;
+
+   public:
+    void click() override {
+        _isClicked = true;
+    }
+
+    bool isClicked() override {
+        bool retVal = _isClicked;
+        _isClicked = false;
+        return retVal;
+    }
+};
+
 class stateGroup : public ::testing::Test {
    protected:
-    DummyDoor& door;
-    DummyButton& button;
+    FakeDoor& door;
+    FakeButton& button;
     GarageRemoteContext& context;
 
    public:
     stateGroup()
-        : door(*new DummyDoor),
-          button(*new DummyButton),
+        : door(*new FakeDoor),
+          button(*new FakeButton),
           context(*new GarageRemoteContext(&door, &button)) {
     }
 

@@ -1,16 +1,7 @@
 #ifndef STATEPATTERN_HPP
 #define STATEPATTERN_HPP
 
-enum class DoorStates { Opening, Closing, Stopped };
-
-class GarageRemoteContext;
-
-class State {
-   public:
-    virtual ~State() = default;
-    virtual DoorStates handle(GarageRemoteContext* c) = 0;
-    virtual DoorStates getDoorState() = 0;
-};
+#include <statePatternInterfaces.hpp>
 
 class OpenState : public State {
    public:
@@ -36,49 +27,19 @@ class StoppedState : public State {
     DoorStates handle(GarageRemoteContext* c) override;
 };
 
-class DummyButton {
-    bool _isClicked = false;
-
-   public:
-    void click() {
-        _isClicked = true;
-    }
-
-    bool isClicked() {
-        bool retVal = _isClicked;
-        _isClicked = false;
-        return retVal;
-    }
-};
-
-class DummyDoor {
-    bool _isClosing = true;
-
-   public:
-    void open() {
-        _isClosing = false;
-    }
-    void close() {
-        _isClosing = true;
-    }
-    bool isClosing() {
-        return _isClosing;
-    };
-};
-
 class GarageRemoteContext {
     State* _state;
 
    public:
-    GarageRemoteContext(DummyDoor* doorRef, DummyButton* button)
+    GarageRemoteContext(Door* doorRef, Button* button)
         : _state(new StoppedState), door(*doorRef), remoteButton(*button) {
     }
     ~GarageRemoteContext() {
         delete _state;
     }
 
-    DummyDoor& door;
-    DummyButton& remoteButton;
+    Door& door;
+    Button& remoteButton;
 
     DoorStates handle();
     void changeState(State* state);
