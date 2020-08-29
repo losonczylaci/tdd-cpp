@@ -12,4 +12,4 @@ RUN apt-get -qq install cmake
 RUN apt-get -qq install remake
 RUN apt-get -qq install valgrind
 RUN apt-get -qq install cppcheck
-RUN apt-get -qq install clang-format
+RUN apt-get -qq install clang-format-7
