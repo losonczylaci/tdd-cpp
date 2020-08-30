@@ -7,6 +7,7 @@ RUN apt-get -qq upgrade
 RUN apt-get -qq install libboost-all-dev=1.62.0.1
 
 # tools
+RUN apt-get -qq install vim
 RUN apt-get -qq install build-essential
 RUN apt-get -qq install cmake
 RUN apt-get -qq install remake
