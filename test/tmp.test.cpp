@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <boost/hana.hpp>
 
 template <int _a, int _b>
 struct Rectangle {
@@ -36,4 +37,56 @@ struct Factorial<1, sum> {
 
 TEST(tmpGroup, testFactorial) {
     EXPECT_EQ(24, Factorial<4>::value);
+}
+
+namespace hana = boost::hana;
+using namespace hana::literals;
+using namespace std;
+
+struct Truck {
+    string name;
+    double bed_length;
+};
+
+struct Car {
+    string name;
+};
+
+struct Motorcycle {
+    string name;
+};
+
+TEST(tmpGroup, test) {
+    auto vehicles = hana::make_tuple(Truck{"F-150", 8.5}, Car{"Volt"}, Motorcycle{"Ninja"});
+
+    auto has_bed_length = hana::is_valid([](auto&& x) -> decltype((void)x.bed_length) {});
+    auto has_no_bed_length = hana::compose(hana::not_, has_bed_length);
+
+    auto trucks = hana::filter(vehicles, has_bed_length);
+    auto nontrucks = hana::filter(vehicles, has_no_bed_length);
+}
+
+template <int input, int result = 1>
+struct Fibonacci : Fibonacci<input - 1, result + input> {};
+
+template <int n>
+struct Fibonacci<n> {
+    enum { value = Fibonacci<n - 1>::value + Fibonacci<n - 2>::value };
+};
+
+template <>
+struct Fibonacci<0> {
+    enum { value = 0 };
+};
+
+template <>
+struct Fibonacci<1> {
+    enum { value = 1 };
+};
+
+TEST(tmpGroup, fibonacci) {
+    EXPECT_EQ(1, Fibonacci<1>::value);
+    EXPECT_EQ(1, Fibonacci<2>::value);
+    EXPECT_EQ(2, Fibonacci<3>::value);
+    EXPECT_EQ(3, Fibonacci<4>::value);
 }
