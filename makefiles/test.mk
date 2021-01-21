@@ -15,12 +15,14 @@ $(libDir)/gtest/lib/libgtest.a:
 -include $(testsDependencies)
 
 $(buildDir)/%.o: $(testDir)/%.cpp
-	mkdir -p $(buildDir)
-	g++ -c -o $@ $(CXXFLAGS) $< -I$(GTEST_INC) -I$(GMOCK_INC) -Iinclude $(createDependencies) 
+	@mkdir -p $(buildDir)
+	@g++ -c -o $@ $(CXXFLAGS) $< -I$(GTEST_INC) -I$(GMOCK_INC) -Iinclude $(createDependencies) 
+	@echo $@
 
 $(buildDir)/testmain: $(testsObjects) $(GTEST_LIBS) $(sourceObjects) $(libDir)/gtest/lib/libgtest.a
-	mkdir -p $(buildDir)
-	g++ -o $@ $(CXXFLAGS) -L./$(GTEST_LIB) -lgmock_main -lgmock -lgtest_main -lgtest $(testsObjects) $(sourceObjects) -I$(GTEST_INC) -I$(GMOCK_INC)
+	@mkdir -p $(buildDir)
+	@g++ -o $@ $(CXXFLAGS) -L./$(GTEST_LIB) -lgmock_main -lgmock -lgtest_main -lgtest $(testsObjects) $(sourceObjects) -I$(GTEST_INC) -I$(GMOCK_INC)
+	@echo $@
 
 $(buildDir)/coverage.info: test
 	@lcov --capture --directory ./ -o $@ -q $(lcovConfig)
