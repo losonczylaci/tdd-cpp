@@ -1,7 +1,7 @@
-#include <animals.hpp>
+#include <iostream>
+#include "add.hpp"
 
 int main() {
-    Dog d("Beethoven");
-    d.saySomething();
+    std::cout << "2+2 is " << add(2, 2) << std::endl;
     return 0;
 }
