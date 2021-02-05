@@ -1,7 +1,14 @@
 
 STD      := c++11
-WARNINGS := -Wall -Wextra -Wshadow -fsanitize=undefined
-COVERAGE := --coverage
+
+ifeq ($(OS),Windows_NT)
+    WARNINGS :=
+    COVERAGE :=
+else
+    WARNINGS := -Wall -Wextra -Wshadow -fsanitize=undefined
+    COVERAGE := --coverage
+endif
+
 CXXFLAGS = -std=$(STD) -g $(COVERAGE) $(WARNINGS)
 
 define createDependencies

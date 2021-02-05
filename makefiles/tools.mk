@@ -1,5 +1,3 @@
-OS := $(shell uname)
-
 ifeq ($(OS),Linux)
     CLANG-TIDY := clang-tidy
 else

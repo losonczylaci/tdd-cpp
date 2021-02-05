@@ -2,10 +2,19 @@
 
 Base C++ project for practicing TDD.
 
-## Prerequisites
+## OS
 
 - Linux-based system (or WSL)
 - See [Dockerfile](./Dockerfile) for the rest.
+
+### Linux users
+
+Docker config is provided. In case you are not familiar with Docker, take a look into the `./Dockerfile` and you can install the required tools manually.
+
+### Windows users
+
+Many targets (such as `memcheck`, `coverage`... etc.) are not supported by default. Also, make sure path to the compiler is added to the `PATH` environment variable.
+If you don't want to mess with your `PATH` variable just update the compiler path (if necessary) in the `./build.bat` and you can invoke targets using it.
 
 ## Production code
 
@@ -35,22 +44,6 @@ make all STD=c++14
 ```
 
 > Note: Change of cpp standard will not trigger re-compilation. If you do change standard, consider running `clean` make target.
-
-## VSCode
-
-I use VSCode as my text editor and I highly encourage you to do the same.
-I have checked in my configurations, just in case you want to use them:
-
-- `launch.json` - which contains the configuration for debugging
-- `task.json`- which defines build tasks ( unit-test task and a generic build task )
-
-### Tasks
-
-You can access these tasks by:
-
-- hit `CTRL+P`
-- hit `Space` and type `task`
-- you can choose from the drop down list
 
 ### Docker
 
