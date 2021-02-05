@@ -20,7 +20,7 @@ cleanlib:
 
 test: $(buildDir)/testmain
 	@echo -e "\nRunning unit-tests..."
-	@./$(buildDir)/testmain --gtest_brief=1
+	@./$(buildDir)/testmain
 
 qa: memcheck lint
 
